@@ -61,10 +61,7 @@ public class WalletDAOImpl implements WalletDAO {
 		
 		balance=balance-money;
 		
-		if(balance<0)
-		{
-			throw new Exception();
-		}
+		
 		Query query=session.createQuery("Update Wallet "
 				                         + "set balance=:balance "
 				                          + "where walletid=:walletId");
@@ -73,6 +70,11 @@ public class WalletDAOImpl implements WalletDAO {
 		query.setParameter("walletId", sourcewalletid);
 		
 		query.executeUpdate();
+		
+		if(balance<0)
+		{
+			throw new Exception();
+		}
 	}
 
 }
