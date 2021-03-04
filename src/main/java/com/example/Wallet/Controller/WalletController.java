@@ -1,6 +1,7 @@
 package com.example.Wallet.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,5 +20,11 @@ public class WalletController {
 	public void addMoney(@PathVariable int walletid, @PathVariable double money)
 	{
 		walletdao.addMoney(walletid, money);		
+	}
+	
+	@GetMapping("/getmoney/{walletid}")
+	public double getMoney(@PathVariable int walletid)
+	{
+		return walletdao.getMoney(walletid);
 	}
 }

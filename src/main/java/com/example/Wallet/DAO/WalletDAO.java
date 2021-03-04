@@ -4,5 +4,9 @@ public interface WalletDAO {
    
 	public void addMoney(int walletId,double money);
 
-	public void deductmoney(int sourcewalletid, double money) throws Exception;
+	public double deductmoney(int sourcewalletid, double money);
+	
+	public double getMoney(int walletId);
+
+	public void addMoneyRevers(int sourcewalletid, double walletmoney);
 }

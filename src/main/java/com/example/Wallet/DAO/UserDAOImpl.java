@@ -62,7 +62,6 @@ public class UserDAOImpl implements UserDAO {
 				
 	    }catch(Exception e)
 	    {
-	    	System.out.println("Invalid UserId");
 	    	e.printStackTrace(); 
 	    }
 		return transationlist;
@@ -75,8 +74,9 @@ public class UserDAOImpl implements UserDAO {
 		
 		int sourcewalletid=transaction.getSourcewalletid();
 		int targetwalletid=transaction.getTargetwalletid();
-		//System.out.println(targetwalletid);
+		
 		double money=transaction.getAmount();
+		
 		try {
 		
 		double charges=(money*0.2/100);
@@ -85,17 +85,31 @@ public class UserDAOImpl implements UserDAO {
 		
 		double finalmoney = money-(charges + commision);   
 				
-		walletdao.deductmoney(sourcewalletid,money);
+		//double balance1=wallet.getBalance();
 		
-		walletdao.addMoney(targetwalletid, finalmoney);
+		double balance=walletdao.deductmoney(sourcewalletid,money);
+		
+		if(balance>0)
+		{		
+			walletdao.addMoney(targetwalletid, finalmoney);	
+		}
+		else
+		{
+			double walletmoney=walletdao.getMoney(sourcewalletid);
+			
+			walletdao.addMoneyRevers(sourcewalletid, walletmoney);
+			
+			return "Transaction Failed !!!";
+		}
 		
 		}
 		catch(Exception e)
 		{
-			walletdao.addMoney(sourcewalletid, money);
+			
 			e.printStackTrace();
-			return "Transaction Failed !!!";
+			
 		}
+		
 		return "Successfully Transaction !!!";
 	}
 

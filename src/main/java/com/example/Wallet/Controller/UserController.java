@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Wallet.DAO.UserDAO;
+import com.example.Wallet.DAO.WalletDAO;
 import com.example.Wallet.Entity.Transaction;
 import com.example.Wallet.Entity.User_Details;
 
@@ -21,6 +22,9 @@ public class UserController {
 
 	@Autowired
 	UserDAO userdao;
+	
+	@Autowired
+	WalletDAO walletdao;
 	
 	@PostMapping("/adduser")
 	public void addUser(@RequestBody User_Details user)
@@ -39,6 +43,7 @@ public class UserController {
 	{
 	     userdao.addtransaction(transaction);
 		//System.out.println(transaction.getTargetwalletid());
-		return userdao.dotransaction(transaction);
+		 return userdao.dotransaction(transaction);
+		  
 	}
 }

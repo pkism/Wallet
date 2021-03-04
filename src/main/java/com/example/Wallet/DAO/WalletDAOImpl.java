@@ -24,14 +24,13 @@ public class WalletDAOImpl implements WalletDAO {
 		// TODO Auto-generated method stub
          
 		Session session=entityManager.unwrap(Session.class);
-		//System.out.println(walletId);
-		Wallet wallet=session.get(Wallet.class, walletId);
 		
-		//System.out.println("yyyy");
-		//System.out.println(wallet);
+		Wallet wallet=session.get(Wallet.class, walletId);
 		
 	    double balance=wallet.getBalance();
 		
+	    //System.out.println(balance);
+	    
 		balance=balance+money;
 		
 		Query query=session.createQuery("Update Wallet "
@@ -47,7 +46,7 @@ public class WalletDAOImpl implements WalletDAO {
 
 	@Override
 	@Transactional
-	public void deductmoney(int sourcewalletid, double money) throws Exception {
+	public double deductmoney(int sourcewalletid, double money){
 		// TODO Auto-generated method stub
 	    
 		
@@ -61,7 +60,6 @@ public class WalletDAOImpl implements WalletDAO {
 		
 		balance=balance-money;
 		
-		
 		Query query=session.createQuery("Update Wallet "
 				                         + "set balance=:balance "
 				                          + "where walletid=:walletId");
@@ -70,11 +68,37 @@ public class WalletDAOImpl implements WalletDAO {
 		query.setParameter("walletId", sourcewalletid);
 		
 		query.executeUpdate();
+		 
+		return balance;
+	}
+
+
+	@Override
+	public double getMoney(int walletId) {
+		// TODO Auto-generated method stub
 		
-		if(balance<0)
-		{
-			throw new Exception();
-		}
+		Session session=entityManager.unwrap(Session.class);
+		
+		Wallet wallet=session.get(Wallet.class, walletId);
+		
+		return wallet.getBalance();
+	}
+
+
+	@Override
+	public void addMoneyRevers(int sourcewalletid, double walletmoney) {
+		// TODO Auto-generated method stub
+		
+		Session session=entityManager.unwrap(Session.class);
+		
+		Query query=session.createQuery("Update Wallet "
+                + "set balance=:balance "
+                 + "where walletid=:walletId");
+
+      query.setParameter("balance", walletmoney);
+      query.setParameter("walletId", sourcewalletid);
+
+      query.executeUpdate();
 	}
 
 }

@@ -18,8 +18,10 @@ public class Transaction {
 	
 	@Column(name="sid")
 	private int sourcewalletid;
+	
 	@Column(name="tid")
 	private int targetwalletid;
+	
 	@Column(name="amount")
 	private double amount;
 	
