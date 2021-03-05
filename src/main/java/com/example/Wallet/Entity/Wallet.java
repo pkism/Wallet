@@ -20,9 +20,6 @@ public class Wallet {
 	 @Column(name="balance")
 	 private double balance;
 	 
-	 //List<Double> transaction = new ArrayList<>();
-	 
-
 	public int getId() {
 		return walletid;
 	}

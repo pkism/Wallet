@@ -79,11 +79,11 @@ public class UserDAOImpl implements UserDAO {
 		
 		try {
 		
-		double charges=(money*0.2/100);
+		double charges=(money*0.2/100); //calculate the charges 
 		
-		double commision=(money*.05/100);
+		double commission=(money*.05/100); //calculate the commission 
 		
-		double finalmoney = money-(charges + commision);   
+		double finalmoney = money-(charges + commission);   
 				
 		//double balance1=wallet.getBalance();
 		
@@ -97,9 +97,9 @@ public class UserDAOImpl implements UserDAO {
 		{
 			double walletmoney=walletdao.getMoney(sourcewalletid);
 			
-			walletdao.addMoneyRevers(sourcewalletid, walletmoney);
+			walletdao.addMoneyRevers(sourcewalletid, walletmoney); //Revert the transaction 
 			
-			return "Transaction Failed !!!";
+			return "Transaction Failed !!!"; //returning the status of transaction on Failure 
 		}
 		
 		}
@@ -110,7 +110,7 @@ public class UserDAOImpl implements UserDAO {
 			
 		}
 		
-		return "Successfully Transaction !!!";
+		return "Successfully Transaction !!!"; //returning the status of transaction on Success
 	}
 
 	@Override

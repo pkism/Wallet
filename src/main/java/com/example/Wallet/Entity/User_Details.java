@@ -26,7 +26,7 @@ public class User_Details {
 	private String lastName;
 	
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL) //OneToOne mapping between User and wallet
 	@JoinColumn(name="wallet_id")
 	private Wallet wallet;
 

@@ -26,17 +26,25 @@ public class UserController {
 	@Autowired
 	WalletDAO walletdao;
 	
+	
+	//This API will work for new user or we can say login/sign-up
+	
 	@PostMapping("/adduser")
 	public void addUser(@RequestBody User_Details user)
 	{
         userdao.addUser(user);		
 	}
 	
+	
+	//This will return all transaction for a user
+	
 	@GetMapping("/gettransaction/{userid}")
 	public List<Transaction> getalltransaction(@PathVariable int userid)
 	{
 		return userdao.getalltransaction(userid);
 	}
+	
+	//This api will call for transaction between two users
 	
 	@PutMapping("/dotransaction")
 	public String dotransaction(@RequestBody Transaction transaction)

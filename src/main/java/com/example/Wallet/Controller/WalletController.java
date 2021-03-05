@@ -16,11 +16,16 @@ public class WalletController {
 	@Autowired
 	WalletDAO walletdao;
 	
+	//This api will call for add money in wallet
+	
 	@PostMapping("/addmoney/{walletid}/{money}")
 	public void addMoney(@PathVariable int walletid, @PathVariable double money)
 	{
 		walletdao.addMoney(walletid, money);		
 	}
+	
+	
+	//This api will use for get money from a wallet
 	
 	@GetMapping("/getmoney/{walletid}")
 	public double getMoney(@PathVariable int walletid)
